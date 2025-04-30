@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // 요소 가져오기
+    const floorBtns = document.querySelectorAll('.floor-btn');
+    const floors = document.querySelectorAll('.floor');
     const seats = document.querySelectorAll('.seat');
     const timeSelection = document.getElementById('timeSelection');
     const timeBlocks = document.querySelectorAll('.time-block');
@@ -10,6 +12,32 @@ document.addEventListener('DOMContentLoaded', () => {
     let reservedSeat = null; // 현재 사용자가 예약한 자리
     let timerInterval = null; // 타이머 인터벌
     let remainingTime = 30; // 예약 시간 제한 (초)
+    
+    // 층 선택 초기화 (기본: 1층)
+    showFloor(1);
+    
+    // 층 선택 버튼 클릭 이벤트
+    floorBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const floorNum = btn.getAttribute('data-floor');
+            
+            // 버튼 활성화 상태 변경
+            floorBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            // 선택된 층 표시
+            showFloor(floorNum);
+        });
+    });
+    
+    // 층 표시 함수
+    function showFloor(floorNum) {
+        floors.forEach(floor => {
+            floor.classList.remove('active');
+        });
+        
+        document.getElementById(`floor${floorNum}`).classList.add('active');
+    }
     
     // 타이머 요소 생성
     const timerElement = document.createElement('div');
@@ -167,11 +195,15 @@ document.addEventListener('DOMContentLoaded', () => {
             // 시간 선택 패널 초기화
             timeSelection.classList.remove('show');
             
+            // 층과 좌석 정보 가져오기
+            const floorNum = selectedSeat.getAttribute('data-floor');
+            const seatNum = selectedSeat.getAttribute('data-seat');
+            
             // 선택한 시간대 텍스트 추출
             const timeTexts = selectedTimes.map(time => time.textContent).join(', ');
             
             // 예약 확인 메시지 표시
-            alert(`자리 ${selectedSeat.textContent}번이 다음 시간대에 예약되었습니다: ${timeTexts}`);
+            alert(`${floorNum}층 ${seatNum}번 자리가 다음 시간대에 예약되었습니다: ${timeTexts}`);
             
             // 선택 상태 초기화
             selectedSeat = null;

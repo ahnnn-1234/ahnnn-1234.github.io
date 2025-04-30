@@ -18,20 +18,60 @@ body {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 500px;
+    width: 600px;
     text-align: center;
 }
 
-h1 {
-    margin-bottom: 20px;
+h1, h2, h3 {
     color: #333;
+    margin-bottom: 15px;
+}
+
+/* 층 선택 스타일 */
+.floor-selector {
+    margin-bottom: 20px;
+}
+
+.floor-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.floor-btn {
+    padding: 8px 15px;
+    background-color: #eee;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.floor-btn.active {
+    background-color: #3498db;
+    color: white;
+}
+
+/* 층별 좌석 컨테이너 */
+.floor-container {
+    margin-bottom: 20px;
+}
+
+.floor {
+    display: none;
+}
+
+.floor.active {
+    display: block;
 }
 
 .seats-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .seat {
@@ -96,4 +136,12 @@ h1 {
 
 .confirm-btn.show {
     display: inline-block;
+}
+
+.timer {
+    padding: 5px;
+    font-size: 16px;
+    background-color: #f8f8f8;
+    border-radius: 4px;
+    margin-bottom: 10px;
 } 
