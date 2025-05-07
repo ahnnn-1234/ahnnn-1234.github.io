@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 페이지 - 예약 현황</title>
+    <link rel="stylesheet" href="style.css"> <!-- 기본 스타일 재활용 -->
+    <style>
+        .container { max-width: 900px; margin: 20px auto; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .home-link { display: inline-block; margin-bottom: 20px; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
+        .home-link:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="home-link">메인 페이지로 돌아가기</a>
+        <h1>예약 현황</h1>
+        <table id="reservationsTable">
+            <thead>
+                <tr>
+                    <th>예약자 이메일</th>
+                    <th>예약 좌석</th>
+                    <th>예약 시간</th>
+                    <th>예약 시각</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 예약 정보가 여기에 동적으로 추가됩니다. -->
+            </tbody>
+        </table>
+    </div>
+    <script src="admin.js"></script>
+</body>
+</html> 

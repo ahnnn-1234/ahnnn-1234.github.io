@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Add Google Platform Library script -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <title>로그인 - 자리 예약 시스템</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="login-container">
+        <h1>자리 예약 시스템</h1>
+        <p>로그인하여 예약 시스템을 이용하세요.</p>
+        <!-- Google Sign-In button placeholder -->
+        <div id="g_id_onload"
+             data-client_id="911646811097-7msns36dvbm00rsqgd68ii5j5cslcfvm.apps.googleusercontent.com" 
+             data-callback="handleCredentialResponse"> 
+        </div>
+        <div class="g_id_signin"
+             data-type="standard"
+             data-size="large"
+             data-theme="outline"
+             data-text="sign_in_with"
+             data-shape="rectangular"
+             data-logo_alignment="left">
+        </div>
+        <p id="loginError" class="error-message"></p> 
+    </div>
+
+    <script src="login.js"></script> </body>
+</html> 
