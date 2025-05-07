@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 요소 가져오기
     const floorBtns = document.querySelectorAll('.floor-btn');
     const floors = document.querySelectorAll('.floor');
+    const roomBtns = document.querySelectorAll('.room-btn');
+    const rooms = document.querySelectorAll('.room');
     const seats = document.querySelectorAll('.seat');
     const timeSelection = document.getElementById('timeSelection');
     const timeBlocks = document.querySelectorAll('.time-block');
@@ -27,6 +29,32 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // 선택된 층 표시
             showFloor(floorNum);
+            
+            // 방 선택 초기화
+            hideAllRooms();
+            
+            // 층에 해당하는 첫 번째 방 버튼 활성화
+            const firstRoomBtn = document.querySelector(`.room-btn[data-floor="${floorNum}"]`);
+            if (firstRoomBtn) {
+                simulateClick(firstRoomBtn);
+            }
+        });
+    });
+    
+    // 방 선택 버튼 클릭 이벤트
+    roomBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const floorNum = btn.getAttribute('data-floor');
+            const roomName = btn.getAttribute('data-room');
+            
+            // 같은 층의 방 버튼 활성화 상태 변경
+            document.querySelectorAll(`.room-btn[data-floor="${floorNum}"]`).forEach(b => {
+                b.classList.remove('active');
+            });
+            btn.classList.add('active');
+            
+            // 선택된 방 표시
+            showRoom(floorNum, roomName);
         });
     });
     
@@ -37,6 +65,45 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         document.getElementById(`floor${floorNum}`).classList.add('active');
+    }
+    
+    // 방 표시 함수
+    function showRoom(floorNum, roomName) {
+        // 현재 층의 모든 방 숨기기
+        document.querySelectorAll(`.room[id^="floor${floorNum}"]`).forEach(room => {
+            room.classList.remove('active');
+        });
+        
+        // 선택된 방 표시
+        const roomElement = document.getElementById(`floor${floorNum}-${roomName}`);
+        if (roomElement) {
+            roomElement.classList.add('active');
+        }
+    }
+    
+    // 모든 방 숨기기
+    function hideAllRooms() {
+        rooms.forEach(room => {
+            room.classList.remove('active');
+        });
+        
+        // 방 버튼 활성화 상태 제거
+        roomBtns.forEach(btn => {
+            btn.classList.remove('active');
+        });
+    }
+    
+    // 버튼 클릭 시뮬레이션 함수
+    function simulateClick(element) {
+        if (element) {
+            element.classList.add('active');
+            const event = new MouseEvent('click', {
+                bubbles: true,
+                cancelable: true,
+                view: window
+            });
+            element.dispatchEvent(event);
+        }
     }
     
     // 타이머 요소 생성
@@ -195,15 +262,16 @@ document.addEventListener('DOMContentLoaded', () => {
             // 시간 선택 패널 초기화
             timeSelection.classList.remove('show');
             
-            // 층과 좌석 정보 가져오기
+            // 층, 방, 좌석 정보 가져오기
             const floorNum = selectedSeat.getAttribute('data-floor');
+            const roomName = selectedSeat.getAttribute('data-room');
             const seatNum = selectedSeat.getAttribute('data-seat');
             
             // 선택한 시간대 텍스트 추출
             const timeTexts = selectedTimes.map(time => time.textContent).join(', ');
             
             // 예약 확인 메시지 표시
-            alert(`${floorNum}층 ${seatNum}번 자리가 다음 시간대에 예약되었습니다: ${timeTexts}`);
+            alert(`${floorNum}층 ${roomName} ${seatNum}번 자리가 다음 시간대에 예약되었습니다: ${timeTexts}`);
             
             // 선택 상태 초기화
             selectedSeat = null;
@@ -230,4 +298,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     `;
     document.head.appendChild(style);
+    
+    // 초기 상태: 1층의 첫 번째 방 버튼 클릭 시뮬레이션
+    simulateClick(document.querySelector('.room-btn[data-floor="1"]'));
 }); 
